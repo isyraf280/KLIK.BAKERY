@@ -76,19 +76,19 @@ export const Footer = ({ setActiveTab }) => {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.88rem', color: '#D6D3D1' }}>
               <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                 <MapPin size={18} color="#D4AF37" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan 12190</span>
+                <span>Makassar sulsel</span>
               </li>
               <li style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                 <Clock size={18} color="#D4AF37" style={{ flexShrink: 0 }} />
-                <span>Buka Setiap Hari: 07:30 – 21:00 WIB</span>
+                <span>Buka Senin-Sabtu : 09.00 - 17.00</span>
               </li>
               <li style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                 <Phone size={18} color="#D4AF37" style={{ flexShrink: 0 }} />
-                <span>+62 812-3456-7890 (Customer Concierge)</span>
+                <span>08111191587 (Customer Concierge)</span>
               </li>
               <li style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                 <Mail size={18} color="#D4AF37" style={{ flexShrink: 0 }} />
-                <span>bonjour@lesaffrone.com</span>
+                <span>KlikBakery@gmail.com</span>
               </li>
             </ul>
           </div>
