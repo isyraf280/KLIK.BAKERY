@@ -1,79 +1,36 @@
-import React, { useState } from 'react';
-import { Navbar } from './components/layout/Navbar';
-import { Footer } from './components/layout/Footer';
-import { CartDrawer } from './components/layout/CartDrawer';
-import { ProductDetailModal } from './components/catalog/ProductDetailModal';
-import { CheckoutModal } from './components/checkout/CheckoutModal';
-
-import { HomePage } from './pages/HomePage';
-import { CatalogPage } from './pages/CatalogPage';
-import { CustomHampersPage } from './pages/CustomHampersPage';
-import { AboutPage } from './pages/AboutPage';
+import React from 'react';
+import { useBakeryStore } from './context/BakeryStoreContext';
+import { SiteHeader } from './components/layout/SiteHeader';
+import { CartDrawer } from './components/cart/CartDrawer';
+import { GlobalModal } from './components/modals/GlobalModal';
+import { Toast } from './components/common/Toast';
+import { BakerySiteView } from './pages/BakerySiteView';
+import { BakeryAdminView } from './pages/BakeryAdminView';
+import { BakeryUserView } from './pages/BakeryUserView';
 
 export const App = () => {
-  const [activeTab, setActiveTab] = useState('home');
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const { view } = useBakeryStore();
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {/* Luxury Navbar */}
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Site Header is only shown on the public website view (Admin & User have their own topbar) */}
+      {view === 'site' && <SiteHeader />}
 
-      {/* Main Content Area */}
+      {/* Main View Switching */}
       <main style={{ flex: 1 }}>
-        {activeTab === 'home' && (
-          <HomePage
-            setActiveTab={setActiveTab}
-            onQuickView={(product) => setQuickViewProduct(product)}
-          />
-        )}
-
-        {activeTab === 'catalog' && (
-          <CatalogPage
-            setActiveTab={setActiveTab}
-            onQuickView={(product) => setQuickViewProduct(product)}
-          />
-        )}
-
-        {activeTab === 'custom-hampers' && (
-          <CustomHampersPage
-            setActiveTab={setActiveTab}
-          />
-        )}
-
-        {activeTab === 'about' && (
-          <AboutPage
-            setActiveTab={setActiveTab}
-          />
-        )}
+        {view === 'site' && <BakerySiteView />}
+        {view === 'admin' && <BakeryAdminView />}
+        {view === 'user' && <BakeryUserView />}
       </main>
 
-      {/* Cart Slide-Over Drawer */}
-      <CartDrawer
-        onOpenCheckout={() => setIsCheckoutOpen(true)}
-      />
+      {/* Slide-over Cart Drawer */}
+      <CartDrawer />
 
-      {/* Product Quick View Modal */}
-      {quickViewProduct && (
-        <ProductDetailModal
-          product={quickViewProduct}
-          onClose={() => setQuickViewProduct(null)}
-        />
-      )}
+      {/* Global Information / Article / Quick View Modal */}
+      <GlobalModal />
 
-      {/* Checkout & Simulated Payment Modal */}
-      <CheckoutModal
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-        onFinishOrder={() => {
-          setActiveTab('home');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
-
-      {/* Luxury Footer */}
-      <Footer setActiveTab={setActiveTab} />
+      {/* Floating Toast Notification */}
+      <Toast />
     </div>
   );
 };
